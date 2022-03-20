@@ -1,9 +1,6 @@
-# about_Matlab_fig
+# Some functions about figure in matlab:
 
-
-Some functions about figure in matlab:
-
-  1.bar_texture.m
+##  1.bar_texture.m
   
   using after a bar() function to add texture for it.
   
@@ -21,8 +18,8 @@ Some functions about figure in matlab:
     
    for adding a legend
    
-   look! ~^~^~
+   look!  ^~^
    
    ![image](https://github.com/AhrixU/about_Matlab_fig/blob/main/sample/bar_texture.png)
    
-  ...
+##  ...
