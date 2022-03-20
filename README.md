@@ -20,5 +20,9 @@ Some functions about figure in matlab:
     bar_texture(pic, hatchs, sizs, wids, clrs1, clrs2, lgdpos, lgdname) 
     
    for adding a legend
-    
+   
+   look! ~^~^~
+   
+   ![image](https://github.com/AhrixU/about_Matlab_fig/blob/main/sample/bar_texture.png)
+   
   ...
