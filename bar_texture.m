@@ -1,6 +1,5 @@
 function bar_texture(pic, hatchs, sizs, wids, clrs1, clrs2, lgdpos, lgdname)
 
-    addpath('./dep')
     %p=bar(...)
     %pic is p
     %hatch length(hatch)=length(pic)
@@ -65,6 +64,7 @@ function bar_texture(pic, hatchs, sizs, wids, clrs1, clrs2, lgdpos, lgdname)
 
     end
 
+    addpath('./dep')
     a = axis;
     X = a(2) - a(1);
     Y = a(4) - a(3);
