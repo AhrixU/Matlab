@@ -1,5 +1,5 @@
 function bar_texture(pic, hatchs, sizs, wids, clrs1, clrs2, lgdpos, lgdname)
-
+    addpath('./dep')
     %p=bar(...)
     %pic is p
     %hatch length(hatch)=length(pic)
@@ -23,11 +23,10 @@ function bar_texture(pic, hatchs, sizs, wids, clrs1, clrs2, lgdpos, lgdname)
     hold on
     lp = length(pic);
 
-    
     if nargin == 1
-        hatchs = repmat('/|\-+x.cwk',[1,ceil(lp/8)]);
+        hatchs = repmat('/|\-+x.cwk', [1, ceil(lp / 8)]);
         sizs = 0.4 * ones(1, lp); wids = 0.3 * ones(1, lp);
-        clrs1 = ones(3,lp); clrs2 = zeros(3,lp);
+        clrs1 = ones(3, lp); clrs2 = zeros(3, lp);
     end
 
     gXata = '[';
@@ -64,7 +63,6 @@ function bar_texture(pic, hatchs, sizs, wids, clrs1, clrs2, lgdpos, lgdname)
 
     end
 
-    addpath('./dep')
     a = axis;
     X = a(2) - a(1);
     Y = a(4) - a(3);
@@ -81,9 +79,9 @@ function bar_texture(pic, hatchs, sizs, wids, clrs1, clrs2, lgdpos, lgdname)
             y0 = y{i}(1, j);
             y1 = y{i}(3, j);
 
-            l2 = floor(100 * (x1 - x0) / X) / q;
-            l1 = floor(100 * (y1 - y0) / Y) / q;
-            hatched = makehatch_plus(hatchs(i), sizs(i) * 100, wids(i) * 100 * sizs(i));
+            l2 = floor(100 * abs(x1 - x0) / X) / q;
+            l1 = floor(100 * abs(y1 - y0) / Y) / q;
+            hatched = makehatch(hatchs(i), sizs(i) * 100, wids(i) * 100 * sizs(i));
             hatched = 1 - hatched;
 
             for cls = 1:3
@@ -95,14 +93,24 @@ function bar_texture(pic, hatchs, sizs, wids, clrs1, clrs2, lgdpos, lgdname)
             hatching = hatching(1:l1, 1:l2, :);
             %size(hatching)
             n = 0.0001;
-            image([x0 + n * X x1 - n * X], [y0 + n * Y y1 - n * Y], hatching)
+            YY = [y0 + n * Y y1 - n * Y];
+
+            switch YY(1) < YY(2)
+                case 1
+                    image([x0 + n * X x1 - n * X], [y0 + n * Y y1 - n * Y], hatching)
+                case 0
+                    image([x0 + n * X x1 - n * X], [y1 - n * Y y0 + n * Y], hatching)
+            end
+
             plot([x0 x0 x1 x1 x0], [y0 y1 y1 y0 y0], 'black')
             clear hat hatching hatched
         end
 
     end
-    b=gca;
-    fs=b.FontSize;
+
+    b = gca;
+    fs = b.FontSize;
+
     if nargin == 8
 
         for i = 1:lp
@@ -111,10 +119,10 @@ function bar_texture(pic, hatchs, sizs, wids, clrs1, clrs2, lgdpos, lgdname)
             x1 = lgdpos(1) + lgdpos(4);
             y1 = lgdpos(2) - (i - 1) * (lgdpos(3) + lgdpos(5));
             y0 = lgdpos(2) - (i) * lgdpos(3) - (i - 1) * lgdpos(5);
-            text(x1 + 0.01 * X, (y0 + y1) / 2, lgdname(i),'FontSize',fs)
+            text(x1 + 0.01 * X, (y0 + y1) / 2, lgdname(i), 'FontSize', fs)
             l2 = floor(100 * (x1 - x0) / X) / q;
             l1 = floor(100 * (y1 - y0) / Y) / q;
-            hatched = makehatch_plus(hatchs(i), sizs(i) * 100, wids(i) * 100 * sizs(i));
+            hatched = makehatch(hatchs(i), sizs(i) * 100, wids(i) * 100 * sizs(i));
             hatched = 1 - hatched;
 
             for cls = 1:3
@@ -132,5 +140,6 @@ function bar_texture(pic, hatchs, sizs, wids, clrs1, clrs2, lgdpos, lgdname)
         end
 
     end
+
     xlim([a(1) a(2)])
     ylim([a(3) a(4)])

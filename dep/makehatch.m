@@ -43,18 +43,18 @@ switch (hatch)
     A = A | abs(B-n) <= m/2;
     A = A | abs(B+n) <= m/2;
   case '/'
-    A = fliplr(makehatch_plus('\',n,m));
+    A = fliplr(makehatch('\',n,m));
   case '|'
     A=zeros(n);
     A(:,1:m) = 1;
   case '-'
-    A = makehatch_plus('|',n,m);
+    A = makehatch('|',n,m);
     A = A';
   case '+'
-    A = makehatch_plus('|',n,m);
+    A = makehatch('|',n,m);
     A = A | A';
   case 'x'
-    A = makehatch_plus('\',n,m);
+    A = makehatch('\',n,m);
     A = A | fliplr(A);
   case '.'
     A=zeros(n);
