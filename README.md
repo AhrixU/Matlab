@@ -4,7 +4,9 @@
 Some functions about figure in matlab:
 
   1.bar_texture.m
+  
   using after a bar() function to add texture for it.
+  
   usage:
   
     bar_texture(pic) 
